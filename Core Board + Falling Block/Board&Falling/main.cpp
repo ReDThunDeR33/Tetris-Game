@@ -6,7 +6,6 @@
 #include <sstream>
 #include <windows.h>
 
-// ================= GAME STATE =================
 int score = 0;
 int highScore = 0;
 bool gameOver = false;
@@ -19,7 +18,7 @@ void drawText(float x, float y, std::string text) {
     }
 }
 
-// ================= SCORE SYSTEM =================
+
 void addScore(std::string type) {
     if (gameOver) return;
 
