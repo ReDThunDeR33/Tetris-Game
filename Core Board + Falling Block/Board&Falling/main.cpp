@@ -14,6 +14,10 @@ void initGL() {
 void display() {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
+
+//// right side area of the game
+
+
 	glLineWidth(2);
 	glBegin(GL_LINES);
 	glColor3f(1.0f, 1.0f, 1.0f);
@@ -22,6 +26,7 @@ void display() {
 
 	glEnd();
 
+// left side area of the game
 	glBegin(GL_POLYGON);
 	glColor3f(0.05, 0.05, 0.08);
 	glVertex2f(-1.0f,1.0f);
@@ -30,12 +35,59 @@ void display() {
 	glVertex2f(0.2f,1.0f);
 	glEnd();
 
+// grid boxes
 
+    const int Column = 10;
+    const int Row = 20;
 
+    float L = -1.0f;
+    float R =  0.2f;
+    float D = -1.0f;
+    float U =  1.0f;
 
+    float BoxWidth = (R - L) / Column;
+    float BoxHeight = (U - D) / Row;
 
+    glColor3f(0.75f, 0.75f, 0.75f);
+    glLineWidth(1.0f);
+    glBegin(GL_LINES);
 
-	glFlush();
+    for (int c = 0; c <= Column; c++) {
+        float x = L + c * BoxWidth;
+        glVertex2f(x, D);
+        glVertex2f(x, U);
+    }
+
+    for (int r = 0; r <= Row; r++) {
+        float y = D + r * BoxHeight;
+        glVertex2f(L,  y);
+        glVertex2f(R, y);
+    }
+
+    glEnd();
+
+// box (for plactice not for use . after arindom's work)
+
+    int blockCol = 5;
+    int blockRow = 19;
+
+    float x1 = L + blockCol * BoxWidth;
+    float y1 = D + blockRow * BoxHeight;
+    float x2 = x1 + BoxWidth;
+    float y2 = y1 + BoxHeight;
+
+    glColor3f(1.0f, 0.3f, 0.3f);
+    glBegin(GL_QUADS);
+    glVertex2f(x1, y1);
+    glVertex2f(x2, y1);
+    glVertex2f(x2, y2);
+    glVertex2f(x1, y2);
+    glEnd();
+
+//falling and timer
+
+    glFlush();
+
 }
 
 int main(int argc, char** argv) {
