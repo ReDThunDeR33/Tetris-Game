@@ -9,7 +9,21 @@
 
 void initGL() {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+
 }
+
+// global varable use na korle alada function e problem hobe
+const int Column = 10;
+    const int Row = 20;
+
+    float L = -1.0f;
+    float R =  0.2f;
+    float D = -1.0f;
+    float U =  1.0f;
+
+    int blockCol = 5;
+    int blockRow = 19;
 
 void display() {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -37,14 +51,6 @@ void display() {
 
 // grid boxes
 
-    const int Column = 10;
-    const int Row = 20;
-
-    float L = -1.0f;
-    float R =  0.2f;
-    float D = -1.0f;
-    float U =  1.0f;
-
     float BoxWidth = (R - L) / Column;
     float BoxHeight = (U - D) / Row;
 
@@ -68,8 +74,7 @@ void display() {
 
 // box (for plactice not for use . after arindom's work)
 
-    int blockCol = 5;
-    int blockRow = 19;
+
 
     float x1 = L + blockCol * BoxWidth;
     float y1 = D + blockRow * BoxHeight;
@@ -84,18 +89,32 @@ void display() {
     glVertex2f(x1, y2);
     glEnd();
 
-//falling and timer
 
-    glFlush();
+        glFlush();
 
-}
+    }
+
+
+    //falling by timer
+
+    void update(int value) {
+        blockRow=blockRow-1;
+
+        if (blockRow < 0)
+            {
+
+            blockRow = 19;
+        }
+        glutPostRedisplay();
+        glutTimerFunc(400, update, 0);
+    }
 
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitWindowSize(450, 600);
     glutInitWindowPosition(100, 50);
     glutCreateWindow("Board&Falling");
-
+glutTimerFunc(400, update, 0); // glutmainloop() er age dite hobe naile kaaj kore na
     glutDisplayFunc(display);
     initGL();
     glutMainLoop();
