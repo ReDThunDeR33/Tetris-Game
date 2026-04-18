@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1776522989 source:c:\users\arino\documents\github\tetris-game\color, shape & rotation\csr\main.cpp
+1776524448 source:c:\users\arino\documents\github\tetris-game\color, shape & rotation\csr\main.cpp
 	<GL/glut.h>
 	<cstdlib>
 	<ctime>

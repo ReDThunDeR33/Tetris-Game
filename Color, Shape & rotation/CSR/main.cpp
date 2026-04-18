@@ -10,21 +10,40 @@
 int pieceX = 3;
 int pieceY = 16;
 
-int T_shape[4][4] = {
-    {0, 1, 0, 0},
-    {1, 1, 1, 0},
-    {0, 0, 0, 0},
-    {0, 0, 0, 0}
+// 0: I, 1: O, 2: T, 3: S, 4: Z, 5: J, 6: L
+int shapes[7][4][4] = {
+    {{0,1,0,0},{0,1,0,0},{0,1,0,0},{0,1,0,0}}, // I
+    {{0,0,0,0},{0,1,1,0},{0,1,1,0},{0,0,0,0}}, // O
+    {{0,1,0,0},{1,1,1,0},{0,0,0,0},{0,0,0,0}}, // T
+    {{0,1,1,0},{1,1,0,0},{0,0,0,0},{0,0,0,0}}, // S
+    {{1,1,0,0},{0,1,1,0},{0,0,0,0},{0,0,0,0}}, // Z
+    {{0,1,0,0},{0,1,0,0},{1,1,0,0},{0,0,0,0}}, // J
+    {{0,1,0,0},{0,1,0,0},{0,1,1,0},{0,0,0,0}}  // L
 };
+
+// Standard colors but less saturated (R, G, B)
+float colors[7][3] = {
+    {0.4f, 0.7f, 0.7f}, // Cyan (I)
+    {0.8f, 0.8f, 0.4f}, // Yellow (O)
+    {0.6f, 0.4f, 0.7f}, // Purple (T)
+    {0.4f, 0.7f, 0.4f}, // Green (S)
+    {0.8f, 0.4f, 0.4f}, // Red (Z)
+    {0.4f, 0.4f, 0.7f}, // Blue (J)
+    {0.8f, 0.6f, 0.4f}  // Orange (L)
+};
+
+int currentShapeIndex = 2; // Start with 'T' shape (index 2)
 void update(int value) {
     pieceY--;
 
-    if (pieceY < 1) {
-        pieceY = 19;
+    if (pieceY < 0) {
+        pieceY = 18;
+        pieceX = 3;
+        // Primitive random: pick a number between 0 and 6
+        currentShapeIndex = rand() % 7;
     }
 
     glutPostRedisplay();
-
     glutTimerFunc(500, update, 0);
 }
 void handleKeypress(unsigned char key, int x, int y) {
@@ -103,7 +122,7 @@ glColor3f(0.6f, 0.0f, 0.8f);
     for (int row = 0; row < 4; row++) {
     for (int col = 0; col < 4; col++) {
 
-        if (T_shape[row][col] == 1) {
+        if (shapes[currentShapeIndex][row][col] == 1) {
 
             int actualCol = pieceX + col;
             int actualRow = pieceY - row;
@@ -119,6 +138,17 @@ glColor3f(0.6f, 0.0f, 0.8f);
             glVertex2f(x2, y2);
             glVertex2f(x1, y2);
             glEnd();
+
+            // Primitive "Border" for each block so they don't blend together
+            glColor3f(0.1f, 0.1f, 0.1f); // Dark border
+            glBegin(GL_LINE_LOOP);
+            glVertex2f(x1, y1);
+            glVertex2f(x2, y1);
+            glVertex2f(x2, y2);
+            glVertex2f(x1, y2);
+            glEnd();
+            // Reset color for the next block part
+            glColor3f(colors[currentShapeIndex][0], colors[currentShapeIndex][1], colors[currentShapeIndex][2]);
         }
     }
 }
