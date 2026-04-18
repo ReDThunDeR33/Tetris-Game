@@ -7,8 +7,8 @@
 #include <windows.h>
 #include <GL/glut.h>
 
-int pieceX = 3;
-int pieceY = 16;
+int pieceX = 4;
+int pieceY = 20;
 
 // 0: I, 1: O, 2: T, 3: S, 4: Z, 5: J, 6: L
 int shapes[7][4][4] = {
@@ -32,14 +32,14 @@ float colors[7][3] = {
     {0.8f, 0.6f, 0.4f}  // Orange (L)
 };
 
-int currentShapeIndex = 2; // Start with 'T' shape (index 2)
+int currentShapeIndex = 2; // Start with
+
+
 void update(int value) {
     pieceY--;
-
     if (pieceY < 0) {
-        pieceY = 18;
-        pieceX = 3;
-        // Primitive random: pick a number between 0 and 6
+        pieceY = 20;
+        pieceX = 4;
         currentShapeIndex = rand() % 7;
     }
 
@@ -50,9 +50,12 @@ void handleKeypress(unsigned char key, int x, int y) {
     switch (key) {
         case 'a':
             if (pieceX > 0) pieceX--;
+            else if (pieceX <= 0) pieceX = 9;
+
             break;
         case 'd':
-            if (pieceX < 6) pieceX++;
+            if (pieceX < 8) pieceX++;
+            else if(pieceX >= 8) pieceX = 0;
             break;
     }
     glutPostRedisplay();
@@ -65,26 +68,6 @@ void initGL() {
 void display() {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
-
-//// right side area of the game
-
-
-	glLineWidth(2);
-	glBegin(GL_LINES);
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glVertex2f(0.2f, 1.0f);
-	glVertex2f(0.2f, -1.0f);
-
-	glEnd();
-
-// left side area of the game
-	glBegin(GL_POLYGON);
-	glColor3f(0.05, 0.05, 0.08);
-	glVertex2f(-1.0f,1.0f);
-	glVertex2f(-1.0f,-1.0f);
-	glVertex2f(0.2f,-1.0f);
-	glVertex2f(0.2f,1.0f);
-	glEnd();
 
 // grid boxes
 
@@ -116,7 +99,7 @@ void display() {
     }
 
     glEnd();
-
+glPushMatrix();
 // box (for plactice not for use . after arindom's work)
 glColor3f(0.6f, 0.0f, 0.8f);
     for (int row = 0; row < 4; row++) {
@@ -153,8 +136,10 @@ glColor3f(0.6f, 0.0f, 0.8f);
     }
 }
 //falling and timer
+glPopMatrix();
 
     glFlush();
+
 
 }
 
