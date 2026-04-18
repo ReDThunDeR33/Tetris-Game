@@ -19,7 +19,7 @@ int T_shape[4][4] = {
 void update(int value) {
     pieceY--;
 
-    if (pieceY < 0) {
+    if (pieceY < 1) {
         pieceY = 19;
     }
 
