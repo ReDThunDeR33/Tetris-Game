@@ -13,7 +13,7 @@ void initGL() {
 
 }
 
-// global varable use na korle alada function e problem hobe
+// global variable use na korle alada function e problem hobe
 const int Column = 10;
     const int Row = 20;
 
@@ -114,7 +114,7 @@ int main(int argc, char** argv) {
     glutInitWindowSize(450, 600);
     glutInitWindowPosition(100, 50);
     glutCreateWindow("Board&Falling");
-glutTimerFunc(400, update, 0); // glutmainloop() er age dite hobe naile kaaj kore na
+glutTimerFunc(400, update, 0); // glutMainLoop() er age dite hobe naile kaaj kore na
     glutDisplayFunc(display);
     initGL();
     glutMainLoop();
