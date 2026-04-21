@@ -15,9 +15,7 @@ int shapes[7][4][4] = {
     {{0,1,0,0},{0,1,0,0},{0,1,0,0},{0,1,0,0}}, // I
     {{0,0,0,0},{0,1,1,0},{0,1,1,0},{0,0,0,0}}, // O
     {{0,1,0,0},{1,1,1,0},{0,0,0,0},{0,0,0,0}}, // T
-    {{0,1,1,0},{1,1,0,0},{0,0,0,0},{0,0,0,0}}, // S
     {{1,1,0,0},{0,1,1,0},{0,0,0,0},{0,0,0,0}}, // Z
-    {{0,1,0,0},{0,1,0,0},{1,1,0,0},{0,0,0,0}}, // J
     {{0,1,0,0},{0,1,0,0},{0,1,1,0},{0,0,0,0}}  // L
 };
 
@@ -32,7 +30,7 @@ float colors[7][3] = {
     {0.8f, 0.6f, 0.4f}  // Orange (L)
 };
 
-int currentShapeIndex = 2; // Start with
+int currentShapeIndex = (rand() % 4); // Start with
 
 
 void update(int value) {
@@ -40,11 +38,12 @@ void update(int value) {
     if (pieceY < 0) {
         pieceY = 20;
         pieceX = 4;
-        currentShapeIndex = rand() % 7;
+        currentShapeIndex = rand() % 4;
     }
 
     glutPostRedisplay();
     glutTimerFunc(500, update, 0);
+
 }
 void handleKeypress(unsigned char key, int x, int y) {
     switch (key) {
@@ -101,7 +100,7 @@ void display() {
     glEnd();
 glPushMatrix();
 // box (for plactice not for use . after arindom's work)
-glColor3f(0.6f, 0.0f, 0.8f);
+//glColor3f(0.6f, 0.0f, 0.8f);
     for (int row = 0; row < 4; row++) {
     for (int col = 0; col < 4; col++) {
 
@@ -122,8 +121,7 @@ glColor3f(0.6f, 0.0f, 0.8f);
             glVertex2f(x1, y2);
             glEnd();
 
-            // Primitive "Border" for each block so they don't blend together
-            glColor3f(0.1f, 0.1f, 0.1f); // Dark border
+            glColor3f(0.1f, 0.1f, 0.1f); // border, dont edit
             glBegin(GL_LINE_LOOP);
             glVertex2f(x1, y1);
             glVertex2f(x2, y1);
