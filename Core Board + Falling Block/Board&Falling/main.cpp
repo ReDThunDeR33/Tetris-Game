@@ -9,8 +9,6 @@
 
 void initGL() {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
-
 }
 
 // global variable use na korle alada function e problem hobe
