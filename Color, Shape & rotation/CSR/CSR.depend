@@ -1,13 +1,8 @@
 # depslib dependency file v1.0
-1776534390 source:c:\users\arino\documents\github\tetris-game\color, shape & rotation\csr\main.cpp
+1777302840 source:c:\users\arino\documents\github\tetris-game\color, shape & rotation\csr\main.cpp
 	<GL/glut.h>
 	<cstdlib>
 	<ctime>
-	<cstring>
-	<string>
-	<sstream>
-	<windows.h>
-	<GL/glut.h>
 
 1770692289 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\gl\glut.h
 	"freeglut_std.h"
