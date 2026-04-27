@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1776268868 source:c:\users\nirzo\onedrive\documents\github\tetris-game\scoring +high score +ui\scoringhighscore&ui\main.cpp
+1777298990 source:c:\users\nirzo\onedrive\documents\github\tetris-game\scoring +high score +ui\scoringhighscore&ui\main.cpp
 	<GL/glut.h>
 	<GL/glut.h>
 	<cstdio>

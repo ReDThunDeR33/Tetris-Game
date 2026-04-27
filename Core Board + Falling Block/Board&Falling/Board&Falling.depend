@@ -879,7 +879,7 @@
 1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\gl\glu.h
 	<GL/gl.h>
 
-1776150200 source:c:\users\nirzo\onedrive\documents\github\tetris-game\core board + falling block\board&falling\main.cpp
+1777298990 source:c:\users\nirzo\onedrive\documents\github\tetris-game\core board + falling block\board&falling\main.cpp
 	<GL/glut.h>
 	<cstdlib>
 	<ctime>
@@ -887,4 +887,5 @@
 	<string>
 	<sstream>
 	<windows.h>
+	<GL/glut.h>
 
