@@ -126,7 +126,7 @@ void handleKeypress(unsigned char key, int x, int y) {
 // Draw everything
 // ============================
 void display() {
-
+    // Clear first
     glClear(GL_COLOR_BUFFER_BIT);
 
     float L = -1.0f;
@@ -134,35 +134,15 @@ void display() {
     float D = -1.0f;
     float U =  1.0f;
 
-    float boxW = (R - L) / COLS;
-    float boxH = (U - D) / ROWS;
-
-    // Draw grid
-    glColor3f(0.7f, 0.7f, 0.7f);
-    glBegin(GL_LINES);
-
-    for (int c = 0; c <= COLS; c++) {
-        float x = L + c * boxW;
-        glVertex2f(x, D);
-        glVertex2f(x, U);
-    }
-
-    for (int r = 0; r <= ROWS; r++) {
-        float y = D + r * boxH;
-        glVertex2f(L, y);
-        glVertex2f(R, y);
-    }
-
-    glEnd();
+    float boxW = (R - L) / (float)COLS;
+    float boxH = (U - D) / (float)ROWS;
 
     // =========================
     // Draw placed blocks
     // =========================
     for (int r = 0; r < ROWS; r++) {
         for (int c = 0; c < COLS; c++) {
-
             if (board[r][c] != 0) {
-
                 int shape = board[r][c] - 1;
 
                 float x1 = L + c * boxW;
@@ -171,12 +151,11 @@ void display() {
                 float y2 = y1 + boxH;
 
                 glColor3f(colors[shape][0], colors[shape][1], colors[shape][2]);
-
                 glBegin(GL_QUADS);
-                glVertex2f(x1, y1);
-                glVertex2f(x2, y1);
-                glVertex2f(x2, y2);
-                glVertex2f(x1, y2);
+                    glVertex2f(x1, y1);
+                    glVertex2f(x2, y1);
+                    glVertex2f(x2, y2);
+                    glVertex2f(x1, y2);
                 glEnd();
             }
         }
@@ -191,11 +170,9 @@ void display() {
 
     for (int r = 0; r < 4; r++) {
         for (int c = 0; c < 4; c++) {
-
             if (shapes[currentShapeIndex][r][c] == 1) {
-
                 int x = pieceX + c;
-                int y = pieceY - r;
+                int y = pieceY - r; // keep if your coordinate system expects this
 
                 float x1 = L + x * boxW;
                 float y1 = D + y * boxH;
@@ -203,17 +180,44 @@ void display() {
                 float y2 = y1 + boxH;
 
                 glBegin(GL_QUADS);
-                glVertex2f(x1, y1);
-                glVertex2f(x2, y1);
-                glVertex2f(x2, y2);
-                glVertex2f(x1, y2);
+                    glVertex2f(x1, y1);
+                    glVertex2f(x2, y1);
+                    glVertex2f(x2, y2);
+                    glVertex2f(x1, y2);
                 glEnd();
             }
         }
     }
 
-    glFlush();
+    // =========================
+    // Draw grid (vertical and horizontal lines)
+    // =========================
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glBegin(GL_LINES);
+        // vertical lines
+        for (int c = 0; c <= COLS; c++) {
+            float x = L + c * boxW;
+            glVertex2f(x, D);
+            glVertex2f(x, U);
+        }
+        // horizontal lines
+        for (int r = 0; r <= ROWS; r++) {
+            float y = D + r * boxH;
+            glVertex2f(L, y);
+            glVertex2f(R, y);
+        }
+    glEnd();
+
+    // Flush / swap buffers
+    // If using double buffering (GLUT/GLFW), call glutSwapBuffers() or glfwSwapBuffers(window)
+    // If single buffered, glFlush() is sufficient.
+    #ifdef USE_DOUBLE_BUFFER
+        glutSwapBuffers();
+    #else
+        glFlush();
+    #endif
 }
+
 
 // ============================
 // Init
