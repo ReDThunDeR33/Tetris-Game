@@ -107,14 +107,44 @@ void display() {
         glutTimerFunc(400, update, 0);
     }
 
+    void handleKeypress(unsigned char key, int x, int y) {
+    switch (key) {
+        case 'a':
+        case 'A':
+            if (blockCol > 0) blockCol = blockCol - 1;
+            break;
+
+        case 'd':
+        case 'D':
+            if (blockCol < Column - 1) blockCol = blockCol + 1;
+            break;
+
+        case 's':
+        case 'S':
+            blockRow = blockRow - 1;
+            if (blockRow < 0) {
+                blockRow = 19;
+            }
+            break;
+        case ' ':
+            blockRow = 0;
+            break;
+    }
+
+    glutPostRedisplay();
+}
+
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitWindowSize(450, 600);
     glutInitWindowPosition(100, 50);
     glutCreateWindow("Board&Falling");
 glutTimerFunc(400, update, 0); // glutMainLoop() er age dite hobe naile kaaj kore na
+glutKeyboardFunc(handleKeypress);
     glutDisplayFunc(display);
     initGL();
     glutMainLoop();
     return 0;
 }
+
+
