@@ -178,7 +178,7 @@ void placePiece() {
     newPiece();
 }
 
-// ================= ENGINE & INPUT =================
+// ================= ENGINE & INPUT ========//////////////efefe////=========
 void update(int value) {
     if (!gameOver) {
         if (!checkCollision(pieceX, pieceY - 1, currentShape)) {
@@ -191,26 +191,6 @@ void update(int value) {
     glutTimerFunc(400, update, 0);
 }
 
-void handleSpecialKeypress(int key, int x, int y) {
-    if (gameOver) return;
-
-    if (key == GLUT_KEY_UP) {
-        rotateCurrentShape();
-    }
-    else if (key == GLUT_KEY_LEFT) {
-        if (!checkCollision(pieceX - 1, pieceY, currentShape)) pieceX--;
-    }
-    else if (key == GLUT_KEY_RIGHT) {
-        if (!checkCollision(pieceX + 1, pieceY, currentShape)) pieceX++;
-    }
-    else if (key == GLUT_KEY_DOWN) {
-        if (!checkCollision(pieceX, pieceY - 1, currentShape)) {
-            pieceY--;
-            dropType = 1; // Mark as medium drop
-        }
-    }
-    glutPostRedisplay();
-}
 
 void handleKeypress(unsigned char key, int x, int y) {
     if (gameOver) {
@@ -370,7 +350,7 @@ void display() {
     glFlush();
 }
 
-// ================= INIT & MAIN =================
+// ================= INIT & MAIN =================/////////////
 void initGL() {
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     srand(time(0));
@@ -387,7 +367,6 @@ int main(int argc, char** argv) {
 
     glutDisplayFunc(display);
     glutKeyboardFunc(handleKeypress);
-    glutSpecialFunc(handleSpecialKeypress); // For Arrow Keys
     glutTimerFunc(400, update, 0);
 
     glutMainLoop();
